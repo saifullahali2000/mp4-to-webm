@@ -216,10 +216,13 @@ if uploaded_file:
             with st.spinner("⏳ Converting... this may take a moment."):
                 command = [
                     "ffmpeg", "-y",
+                    "-loglevel", "quiet",
                     "-i", input_path,
                     "-c:v", "libvpx-vp9",
                     "-crf", str(crf),
                     "-b:v", "0",
+                    "-cpu-used", "4",
+                    "-deadline", "realtime",
                     "-c:a", "libopus",
                     "-b:a", audio_bitrate,
                     output_path
